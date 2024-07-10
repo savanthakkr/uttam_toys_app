@@ -1,0 +1,264 @@
+# Flutter/Dart/Pub related
+.dart_tool/
+.packages
+.pub/
+build/
+.idea/
+.vscode/
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-versions
+
+# Android related
+android/.gradle/
+android/app/build/
+android/local.properties
+android/.idea/
+android/*.iml
+android/captures/
+android/gradle/wrapper/gradle-wrapper.properties
+
+# iOS related
+ios/Pods/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Runner.xcworkspace/
+ios/Runner.xcworkspace/*
+ios/Runner/GeneratedPluginRegistrant.*
+ios/Flutter/App.framework
+ios/Flutter/engine.xcconfig
+ios/Flutter/generated.xcconfig
+ios/.symlinks/
+ios/Flutter/Flutter.xcframework/
+ios/Flutter/engine/
+ios/Flutter/flutter_assets/
+
+# Xcode related
+xcuserdata/
+*.xcworkspace/
+*.xcuserdatad/
+*.xcscmblueprint/
+*.xcuserstate
+
+# Web related
+web/.dart_tool/
+web/build/
+web/packages
+web/manifest.json
+
+# Miscellaneous
+*.log
+*.lock
+*.tmp
+*.temp
+*.DS_Store
+*.iml
+*.hprof
+*.class
+*.swp
+*.swo
+*.idea/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/libraries
+.idea/shelf/
+.idea/modules
+.idea/inspectionProfiles/Project_Default.xml
+.idea/.name
+.idea/codeStyles
+.idea/runConfigurations
+.idea/misc.xml
+.idea/tasks.xml
+.idea/caches/
+.idea/index
+.idea/.idea/workspace.xml
+.idea/.idea/modules.xml
+*.iml
+*.hprof
+*.class
+*.log
+
+# Obfuscation
+project_root/*/build/obfuscation_map.txt
+
+# Packages
+.pnpm-debug.log*
+.pnpm-metadata.yaml
+
+# Flutter specific packages
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+
+# Coverage
+coverage/
+
+# MacOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+# Thumbnails
+._*
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# JetBrains related
+*.iml
+.idea/
+modules.xml
+workspace.xml
+tasks.xml
+.idea_modules/
+*.ipr
+*.iws
+*.bak
+*.tmp
+*.swp
+*~.nib
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+.idea/.name
+.idea/shelf/
+.idea/modules
+.idea/inspectionProfiles/Project_Default.xml
+.idea/codeStyles
+.idea/libraries
+.idea/tasks.xml
+.idea/caches/
+.idea/index
+.idea/.idea/workspace.xml
+.idea/.idea/modules.xml
+*.hprof
+*.log
+*.class
+*.swp
+*.swo
+
+# Dependency directories
+bin/
+cache/
+splash-screen/
+flutter.splash/
+mobile_splash/
+flutter_clean_splash/
+
+# Android Studio related
+.idea/
+.idea/.name
+.idea/.shelf/
+.idea/.modules/
+.idea/.inspectionProfiles/
+.idea/.git/
+.idea/codeStyles/
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/caches/
+.idea/index
+.idea/vcs.xml
+.idea/gradle.xml
+.idea/sonar.xml
+.idea/runConfigurations/
+.idea/gradle-compiler.xml
+.idea/modules.xml
+.idea/libraries/
+.idea/shelf/
+.idea/vcs.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/tasks.xml
+.idea/workspace.xml
+.idea/runConfigurations/
+
+# Windows related
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS related
+.DS_Store
+.AppleDouble
+.LSOverride
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux related
+*~
+
+# Android Studio related
+*.iml
+.idea/
+modules.xml
+workspace.xml
+tasks.xml
+.idea_modules/
+*.ipr
+*.iws
+*.bak
+*.tmp
+*.swp
+*~.nib
+
+# Flutter related
+.flutter/
+.dart_tool/
+.packages
+.pub-cache/
+.flutter-plugins
+.flutter-plugins-dependencies
+.idea
+.idea/
+*.dart_tool/
+*.packages/
+*.flutter-plugins-dependencies/
+.pub-cache/
+.idea/
+*.iml
+.packages
+.dart_tool/
+.pub-cache/
+*.log
+*.iml
+.idea
+flutter.splash/
+flutter_clean_splash/
