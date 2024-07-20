@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:uttam_toys_app/screens/order_setting/replacement_status_screen.dart';
-import 'package:uttam_toys_app/screens/order_setting/return_status_screen.dart';
-import 'package:uttam_toys_app/utils/intentutils.dart';
-import 'package:uttam_toys_app/widgets/primary_button.dart';
+import 'package:uttam_toys/screens/order_setting/replacement_status_screen.dart';
+import 'package:uttam_toys/screens/order_setting/return_status_screen.dart';
+import 'package:uttam_toys/utils/intentutils.dart';
+import 'package:uttam_toys/widgets/primary_button.dart';
 
 import '../../utils/assets.dart';
 import '../../utils/custom_color.dart';

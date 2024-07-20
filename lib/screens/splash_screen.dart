@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uttam_toys_app/screens/auth/login_screen.dart';
-import 'package:uttam_toys_app/screens/bottom/user_bottom_bar.dart';
-import 'package:uttam_toys_app/screens/walkthrough/intro_screen.dart';
-import 'package:uttam_toys_app/utils/intentutils.dart';
-import 'package:uttam_toys_app/utils/prefs.dart';
+import 'package:uttam_toys/screens/auth/login_screen.dart';
+import 'package:uttam_toys/screens/bottom/user_bottom_bar.dart';
+import 'package:uttam_toys/screens/walkthrough/intro_screen.dart';
+import 'package:uttam_toys/utils/intentutils.dart';
+import 'package:uttam_toys/utils/prefs.dart';
 
 import '../utils/assets.dart';
 

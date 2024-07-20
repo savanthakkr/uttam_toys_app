@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:uttam_toys_app/screens/forgot_password/reset_password_screen.dart';
-import 'package:uttam_toys_app/utils/intentutils.dart';
-import 'package:uttam_toys_app/utils/validation_utils.dart';
+import 'package:uttam_toys/screens/forgot_password/reset_password_screen.dart';
+import 'package:uttam_toys/utils/intentutils.dart';
+import 'package:uttam_toys/utils/validation_utils.dart';
 
 import '../../utils/custom_color.dart';
 import '../../utils/custom_style.dart';

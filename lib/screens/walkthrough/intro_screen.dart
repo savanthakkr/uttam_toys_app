@@ -4,12 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uttam_toys_app/screens/auth/login_screen.dart';
-import 'package:uttam_toys_app/utils/assets.dart';
-import 'package:uttam_toys_app/utils/custom_style.dart';
-import 'package:uttam_toys_app/utils/dimensions.dart';
-import 'package:uttam_toys_app/utils/intentutils.dart';
-import 'package:uttam_toys_app/widgets/page_indicator.dart';
+import 'package:uttam_toys/screens/auth/login_screen.dart';
+import 'package:uttam_toys/utils/assets.dart';
+import 'package:uttam_toys/utils/custom_style.dart';
+import 'package:uttam_toys/utils/dimensions.dart';
+import 'package:uttam_toys/utils/intentutils.dart';
+import 'package:uttam_toys/widgets/page_indicator.dart';
 
 import '../../utils/custom_color.dart';
 import '../../utils/prefs.dart';

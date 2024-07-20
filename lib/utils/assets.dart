@@ -33,6 +33,7 @@ class Assets{
 
   //account
   static const String securitySvg = 'assets/svgs/account/security.svg';
+  static const String addressSvg = 'assets/svgs/account/address.svg';
   static const String privacySvg = 'assets/svgs/account/privacy.svg';
   static const String feedbackSvg = 'assets/svgs/account/feedback.svg';
   static const String termsSvg = 'assets/svgs/account/terms.svg';

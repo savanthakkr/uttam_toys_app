@@ -60,6 +60,7 @@ class Product {
   DateTime updatedAt;
   List<String> images;
   bool? isWishlisted;
+  String? priceDrop;
 
   Product({
     required this.id,
@@ -81,6 +82,7 @@ class Product {
     required this.updatedAt,
     required this.images,
     this.isWishlisted,
+    this.priceDrop,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(

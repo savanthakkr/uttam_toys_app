@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:uttam_toys_app/screens/order_setting/buy_again_screen.dart';
-import 'package:uttam_toys_app/utils/assets.dart';
-import 'package:uttam_toys_app/utils/custom_color.dart';
-import 'package:uttam_toys_app/utils/custom_style.dart';
-import 'package:uttam_toys_app/utils/dimensions.dart';
-import 'package:uttam_toys_app/utils/intentutils.dart';
-import 'package:uttam_toys_app/utils/size.dart';
-import 'package:uttam_toys_app/widgets/appbar_common.dart';
+import 'package:uttam_toys/screens/order_setting/buy_again_screen.dart';
+import 'package:uttam_toys/utils/assets.dart';
+import 'package:uttam_toys/utils/custom_color.dart';
+import 'package:uttam_toys/utils/custom_style.dart';
+import 'package:uttam_toys/utils/dimensions.dart';
+import 'package:uttam_toys/utils/intentutils.dart';
+import 'package:uttam_toys/utils/size.dart';
+import 'package:uttam_toys/widgets/appbar_common.dart';
 
 import '../../models/orders_model.dart';
 

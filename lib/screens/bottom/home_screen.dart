@@ -7,22 +7,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:uttam_toys_app/apis/api_manager.dart';
-import 'package:uttam_toys_app/models/home_model.dart';
-import 'package:uttam_toys_app/screens/category_list_screen.dart';
-import 'package:uttam_toys_app/screens/notifications_screen.dart';
-import 'package:uttam_toys_app/screens/product_details_screen.dart';
-import 'package:uttam_toys_app/screens/product_list_screen.dart';
-import 'package:uttam_toys_app/utils/assets.dart';
-import 'package:uttam_toys_app/utils/connection_utils.dart';
-import 'package:uttam_toys_app/utils/custom_color.dart';
-import 'package:uttam_toys_app/utils/custom_style.dart';
-import 'package:uttam_toys_app/utils/dimensions.dart';
-import 'package:uttam_toys_app/utils/intentutils.dart';
-import 'package:uttam_toys_app/utils/size.dart';
-import 'package:uttam_toys_app/utils/ui_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uttam_toys/apis/api_manager.dart';
+import 'package:uttam_toys/models/home_model.dart';
+import 'package:uttam_toys/models/result_model.dart';
+import 'package:uttam_toys/screens/category_list_screen.dart';
+import 'package:uttam_toys/screens/notifications_screen.dart';
+import 'package:uttam_toys/screens/product_details_screen.dart';
+import 'package:uttam_toys/screens/product_list_screen.dart';
+import 'package:uttam_toys/utils/assets.dart';
+import 'package:uttam_toys/utils/connection_utils.dart';
+import 'package:uttam_toys/utils/custom_color.dart';
+import 'package:uttam_toys/utils/custom_style.dart';
+import 'package:uttam_toys/utils/dimensions.dart';
+import 'package:uttam_toys/utils/intentutils.dart';
+import 'package:uttam_toys/utils/size.dart';
+import 'package:uttam_toys/utils/ui_utils.dart';
 
 import '../../models/category_model.dart';
+import '../../utils/prefs.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,12 +47,21 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Product> sellingList = <Product>[];
   late double mWidth,mHeight;
   bool _isLoading = false;
+  String? userId;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getPrefs();
     getHomeData();
+  }
+  getPrefs() async {
+    SharedPreferences mPrefs = await SharedPreferences.getInstance();
+    String? uId = mPrefs.getString(Prefs.ID);
+    setState(() {
+      userId = uId;
+    });
   }
 
   @override
@@ -125,19 +137,22 @@ class _HomeScreenState extends State<HomeScreen> {
           _categoryList(),
           addVerticalSpace(Dimensions.heightSize),
           _headingText(title: 'Trending Products', onTap: () {
-            IntentUtils.fireIntent(context: context, screen: ProductListScreen(type: 'Trending Products'),
+            IntentUtils.fireIntent(context: context, screen: ProductListScreen(type: 'Trending Products',
+            ),
                 finishAll: false);
           },),
           _trendingList(),
           addVerticalSpace(Dimensions.heightSize),
           _headingText(title: 'Featured Products', onTap: () {
-            IntentUtils.fireIntent(context: context, screen: ProductListScreen(type: 'Featured Products'),
+            IntentUtils.fireIntent(context: context, screen: ProductListScreen(type: 'Featured Products',
+            ),
                 finishAll: false);
           },),
           _feturedList(),
           addVerticalSpace(Dimensions.heightSize),
           _headingText(title: 'Best Selling Products', onTap: () {
-            IntentUtils.fireIntent(context: context, screen: ProductListScreen(type: 'Best Selling Products'),
+            IntentUtils.fireIntent(context: context, screen: ProductListScreen(type: 'Best Selling Products',
+            ),
                 finishAll: false);
           },),
           _sellingList()
@@ -341,7 +356,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: InkWell(
         onTap: () {
-          IntentUtils.fireIntent(context: context, screen: ProductDetailsScreen(), finishAll: false);
+          IntentUtils.fireIntent(context: context, screen: ProductDetailsScreen(pId: toy.id.toString(),), finishAll: false);
         },
         child: ConstrainedBox(
           constraints: const BoxConstraints(
@@ -364,9 +379,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: InkWell(
                         onTap: () {
                           //todo add/remove wishlist
+                          saveProduct(toy.id);
                         },
+
                         child: Icon(
-                          toy.isWishlisted == null || !toy.isWishlisted! ? Icons.favorite_border_rounded : Icons.favorite,
+                          toy.isWishlisted != true  ? Icons.favorite_border_rounded : Icons.favorite,
                           color: CustomColor.primaryColor,
                           size: Dimensions.iconSizeDefault,
                         ),
@@ -415,6 +432,51 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void saveProduct(int id) {
+    ConnectionUtils.checkConnection().then((internet) async {
+      if (internet) {
+        setState(() {
+          _isLoading = true;
+        });
+        try {
+
+          // Simulate an API call with delay
+          final ResultModel resultModel = await ApiManager.saveProducts(
+              userId!,
+              id
+          );
+
+          if (resultModel.error == false) {
+            setState(() {
+              _isLoading = false;
+            });
+            print("Product saved successfully");
+            UIUtils.bottomToast(context: context, text: resultModel.message, isError: false);
+            getHomeData();
+          } else {
+            setState(() {
+              _isLoading = false;
+            });
+            print("Error saving Product: ${resultModel.message}");
+            UIUtils.bottomToast(context: context, text: resultModel.message, isError: true);
+          }
+        } catch (e) {
+          setState(() {
+            _isLoading = false;
+          });
+          print("Exception occurred: $e");
+          UIUtils.bottomToast(context: context, text: e.toString(), isError: true);
+        }
+      } else {
+        // No-Internet Case
+        UIUtils.bottomToast(
+            context: context,
+            text: "Please check your internet connection",
+            isError: true);
+      }
+    });
+  }
+
   void getHomeData() {
     ConnectionUtils.checkConnection().then((intenet) async {
       if (intenet) {
@@ -426,7 +488,7 @@ class _HomeScreenState extends State<HomeScreen> {
           sellingList.clear();
         });
         try{
-          final HomeModel resultModel = await ApiManager.FetchHomeData();
+          final HomeModel resultModel = await ApiManager.FetchHomeData(userId!);
 
           if(resultModel.error == false) {
             setState(() {

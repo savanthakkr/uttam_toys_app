@@ -14,6 +14,41 @@ String? nameValidator(String? value) {
   return null;
 }
 
+String? addressValidator(String? value) {
+  if (value != null && value.length < 3) {
+    return "Please enter valid address";
+  }
+  return null;
+}
+
+String? landmarkValidator(String? value) {
+  if (value != null && value.length < 3) {
+    return "Please enter valid Landmark";
+  }
+  return null;
+}
+
+String? stateValidator(String? value) {
+  if (value != null && value.length < 3) {
+    return "Please enter valid state";
+  }
+  return null;
+}
+
+String? cityValidator(String? value) {
+  if (value != null && value.length < 3) {
+    return "Please enter valid city";
+  }
+  return null;
+}
+
+String? pincodeValidator(String? value) {
+  if (value != null && value.length < 6) {
+    return "Please enter valid pincode";
+  }
+  return null;
+}
+
 String? phoneValidator(String? value) {
   if (value != null && !GetUtils.isPhoneNumber(value)) {
     return "Please enter valid phone number";

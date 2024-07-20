@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:uttam_toys_app/utils/custom_color.dart';
+import 'package:uttam_toys/utils/custom_color.dart';
 
 import '../utils/assets.dart';
 import '../utils/custom_style.dart';

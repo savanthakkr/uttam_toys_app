@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:uttam_toys_app/utils/dimensions.dart';
-import 'package:uttam_toys_app/utils/size.dart';
+import 'package:uttam_toys/utils/dimensions.dart';
+import 'package:uttam_toys/utils/size.dart';
 
 import '../utils/custom_color.dart';
 import '../utils/custom_style.dart';

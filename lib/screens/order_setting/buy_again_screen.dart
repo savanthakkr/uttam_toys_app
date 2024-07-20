@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:uttam_toys_app/screens/order_details_screen.dart';
-import 'package:uttam_toys_app/screens/order_setting/return_replace_screen.dart';
-import 'package:uttam_toys_app/screens/order_setting/review_screen.dart';
-import 'package:uttam_toys_app/screens/order_setting/track_order_screen.dart';
-import 'package:uttam_toys_app/utils/assets.dart';
-import 'package:uttam_toys_app/utils/custom_color.dart';
-import 'package:uttam_toys_app/utils/intentutils.dart';
-import 'package:uttam_toys_app/widgets/appbar_common.dart';
-import 'package:uttam_toys_app/widgets/primary_button.dart';
+import 'package:uttam_toys/screens/order_details_screen.dart';
+import 'package:uttam_toys/screens/order_setting/return_replace_screen.dart';
+import 'package:uttam_toys/screens/order_setting/review_screen.dart';
+import 'package:uttam_toys/screens/order_setting/track_order_screen.dart';
+import 'package:uttam_toys/utils/assets.dart';
+import 'package:uttam_toys/utils/custom_color.dart';
+import 'package:uttam_toys/utils/intentutils.dart';
+import 'package:uttam_toys/widgets/appbar_common.dart';
+import 'package:uttam_toys/widgets/primary_button.dart';
 
 import '../../utils/custom_style.dart';
 import '../../utils/dimensions.dart';

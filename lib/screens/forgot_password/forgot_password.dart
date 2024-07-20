@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:uttam_toys_app/screens/auth/login_screen.dart';
-import 'package:uttam_toys_app/screens/forgot_password/forgot_otp_verification.dart';
-import 'package:uttam_toys_app/utils/dimensions.dart';
-import 'package:uttam_toys_app/utils/intentutils.dart';
-import 'package:uttam_toys_app/utils/validation_utils.dart';
+import 'package:uttam_toys/screens/auth/login_screen.dart';
+import 'package:uttam_toys/screens/forgot_password/forgot_otp_verification.dart';
+import 'package:uttam_toys/utils/dimensions.dart';
+import 'package:uttam_toys/utils/intentutils.dart';
+import 'package:uttam_toys/utils/validation_utils.dart';
 
 import '../../utils/custom_color.dart';
 import '../../utils/custom_style.dart';

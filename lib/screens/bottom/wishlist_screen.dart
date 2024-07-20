@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:uttam_toys_app/models/wishlist_model.dart';
-import 'package:uttam_toys_app/utils/custom_style.dart';
-import 'package:uttam_toys_app/widgets/appbar_common.dart';
+import 'package:uttam_toys/models/wishlist_model.dart';
+import 'package:uttam_toys/utils/custom_style.dart';
+import 'package:uttam_toys/widgets/appbar_common.dart';
 
 import '../../utils/assets.dart';
 import '../../utils/custom_color.dart';

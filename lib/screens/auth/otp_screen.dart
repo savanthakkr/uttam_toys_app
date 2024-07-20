@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:uttam_toys_app/utils/custom_style.dart';
-import 'package:uttam_toys_app/utils/dimensions.dart';
-import 'package:uttam_toys_app/utils/intentutils.dart';
-import 'package:uttam_toys_app/widgets/primary_button.dart';
+import 'package:uttam_toys/utils/custom_style.dart';
+import 'package:uttam_toys/utils/dimensions.dart';
+import 'package:uttam_toys/utils/intentutils.dart';
+import 'package:uttam_toys/widgets/primary_button.dart';
 
 import '../../utils/assets.dart';
 import '../../utils/custom_color.dart';

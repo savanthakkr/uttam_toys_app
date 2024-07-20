@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:uttam_toys_app/screens/forgot_password/forgot_password.dart';
+import 'package:uttam_toys/screens/forgot_password/forgot_password.dart';
 
 import '../../helper/password_tips_dialouge.dart';
 import '../../utils/custom_color.dart';

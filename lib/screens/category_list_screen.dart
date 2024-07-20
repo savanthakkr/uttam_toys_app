@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:uttam_toys_app/apis/api_manager.dart';
-import 'package:uttam_toys_app/models/get_all_category_model.dart';
-import 'package:uttam_toys_app/models/sub_category_model.dart';
-import 'package:uttam_toys_app/widgets/appbar_common.dart';
+import 'package:uttam_toys/apis/api_manager.dart';
+import 'package:uttam_toys/models/get_all_category_model.dart';
+import 'package:uttam_toys/models/sub_category_model.dart';
+import 'package:uttam_toys/screens/subcategory_product_list_screen.dart';
+import 'package:uttam_toys/utils/intentutils.dart';
+import 'package:uttam_toys/widgets/appbar_common.dart';
 
 import '../models/category_model.dart';
 import '../models/wishlist_model.dart';
@@ -95,7 +97,6 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
       if (!responseModel.error) {
         setState(() {
           subCategorymodelList = responseModel.subcategories;
-
           _isLoading = false;
         });
         // UIUtils.bottomToast(
@@ -115,8 +116,6 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
       print(e.toString());
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -228,37 +227,42 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
     } else {
       bytes = null;
     }
-    return Card(
-      elevation: 0,
-      color: CustomColor.whiteColor,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.radius),
-          side: const BorderSide(color: CustomColor.borderColor,width: 1,style: BorderStyle.solid)
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-            minWidth: 120,
-            minHeight: 120,
-            maxWidth: 140
+    return GestureDetector(
+      onTap: (){
+        IntentUtils.fireIntentwithAnimations(context, SubcategoryProductListScreen(subCat: subCategorymodelList.elementAt(index).name), false);
+      },
+      child: Card(
+        elevation: 0,
+        color: CustomColor.whiteColor,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Dimensions.radius),
+            side: const BorderSide(color: CustomColor.borderColor,width: 1,style: BorderStyle.solid)
         ),
-        child: Column(
-          crossAxisAlignment: crossStretch,
-          children: [
-            Container(
-              height: 100.0,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(image: Image.memory(bytes!).image ),
+        clipBehavior: Clip.antiAlias,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+              minWidth: 120,
+              minHeight: 120,
+              maxWidth: 140
+          ),
+          child: Column(
+            crossAxisAlignment: crossStretch,
+            children: [
+              Container(
+                height: 100.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(image: Image.memory(bytes!).image ),
+                ),
               ),
-            ),
-            addVerticalSpace(Dimensions.heightSize*0.9),
-            Text(subCategorymodelList.elementAt(index).name ?? '',
-              textAlign: TextAlign.center,
-              style: CustomStyle.blackMediumTextStyle.copyWith(
-                  fontSize: Dimensions.mediumTextSize
-              ),),
-          ],
+              addVerticalSpace(Dimensions.heightSize*0.9),
+              Text(subCategorymodelList.elementAt(index).name ?? '',
+                textAlign: TextAlign.center,
+                style: CustomStyle.blackMediumTextStyle.copyWith(
+                    fontSize: Dimensions.mediumTextSize
+                ),),
+            ],
+          ),
         ),
       ),
     );

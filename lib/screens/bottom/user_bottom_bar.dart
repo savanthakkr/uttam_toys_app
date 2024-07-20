@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:uttam_toys_app/screens/bottom/cart_screen.dart';
-import 'package:uttam_toys_app/screens/bottom/order_screen.dart';
-import 'package:uttam_toys_app/screens/bottom/wishlist_screen.dart';
+import 'package:uttam_toys/screens/bottom/cart_screen.dart';
+import 'package:uttam_toys/screens/bottom/order_screen.dart';
+import 'package:uttam_toys/screens/bottom/wishlist_screen.dart';
 import 'dart:io' as io;
 
 import '../../utils/assets.dart';

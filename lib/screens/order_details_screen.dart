@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:uttam_toys_app/utils/custom_color.dart';
-import 'package:uttam_toys_app/widgets/appbar_common.dart';
-import 'package:uttam_toys_app/widgets/primary_button.dart';
+import 'package:uttam_toys/utils/custom_color.dart';
+import 'package:uttam_toys/widgets/appbar_common.dart';
+import 'package:uttam_toys/widgets/primary_button.dart';
 
 import '../utils/assets.dart';
 import '../utils/custom_style.dart';

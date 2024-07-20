@@ -1,13 +1,22 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:uttam_toys_app/screens/buy_now_screen.dart';
-import 'package:uttam_toys_app/utils/custom_color.dart';
-import 'package:uttam_toys_app/utils/custom_style.dart';
-import 'package:uttam_toys_app/utils/intentutils.dart';
-import 'package:uttam_toys_app/widgets/appbar_common.dart';
-import 'package:uttam_toys_app/widgets/primary_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uttam_toys/apis/api_manager.dart';
+import 'package:uttam_toys/models/product_details_model.dart';
+import 'package:uttam_toys/models/ragister_model.dart';
+import 'package:uttam_toys/screens/buy_now_screen.dart';
+import 'package:uttam_toys/utils/connection_utils.dart';
+import 'package:uttam_toys/utils/custom_color.dart';
+import 'package:uttam_toys/utils/custom_style.dart';
+import 'package:uttam_toys/utils/intentutils.dart';
+import 'package:uttam_toys/utils/prefs.dart';
+import 'package:uttam_toys/utils/ui_utils.dart';
+import 'package:uttam_toys/widgets/appbar_common.dart';
+import 'package:uttam_toys/widgets/primary_button.dart';
 
 import '../models/review_model.dart';
 import '../utils/assets.dart';
@@ -16,7 +25,9 @@ import '../utils/size.dart';
 import '../widgets/page_indicator.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key});
+
+  String pId;
+  ProductDetailsScreen({super.key,required this.pId});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -25,13 +36,17 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   late double mWidth,mHeight;
   bool _isWishlisted = false;
-  final _imageList = [
+  bool _isLoading = false;
+  final _dummyimageList = [
     Assets.train,
     Assets.train,
     Assets.train
   ];
   int _currentIndex = 0;
   List<ReviewModel> _reviews = <ReviewModel>[];
+  List<ProductDetail> productDetails = <ProductDetail>[];
+  List<String> _imageList = <String>[];
+  String? userId;
 
   void _onBackPressed() {
     // IntentUtils.fireIntent(context, const MobileVerifyScreen());
@@ -41,9 +56,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   @override
   void initState() {
-    getReviews();
+    getPrefs();
     super.initState();
   }
+
+  getPrefs() async {
+    SharedPreferences mPrefs = await SharedPreferences.getInstance();
+    String? uId = mPrefs.getString(Prefs.ID);
+    setState(() {
+      userId = uId;
+    });
+    getReviews();
+    getProductDetails();
+  }
+
 
   void getReviews()
   {
@@ -89,7 +115,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             addHorizontalSpace(Dimensions.widthSize),
           ],
         ),
-        body: ListView(
+        body: _isLoading ? Center(child: CircularProgressIndicator(color: CustomColor.primaryColor,)) : ListView(
           padding: EdgeInsets.symmetric(
             vertical: Dimensions.heightSize,
             horizontal: Dimensions.widthSize
@@ -107,13 +133,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
             ),
             addVerticalSpace(Dimensions.heightSize),
-            Text('TOY TRAIN ENGINE',style: CustomStyle.blackMediumTextStyle,),
-            Text('5-6 year kids plastic toy train engine',style: CustomStyle.regularBlackLightText,),
+            Text(productDetails.isNotEmpty ? productDetails.first.name : "",style: CustomStyle.blackMediumTextStyle,),
+            Text(productDetails.isNotEmpty ? productDetails.first.descriptionShort : "",style: CustomStyle.regularBlackLightText,),
             Row(
               children: [
-                Text('MRP \u20b9499',style: CustomStyle.blackMediumTextStyle,),
+                Text('MRP \u20b9 ${productDetails.isNotEmpty ? productDetails.first.discountPrice : "0"}',style: CustomStyle.blackMediumTextStyle,),
                 addHorizontalSpace(Dimensions.widthSize*0.5),
-                Text('\u20b9599',
+                Text('\u20b9 ${productDetails.isNotEmpty ? productDetails.first.mainPrice : "0"}',
                   style: CustomStyle.cancelledTextStyle.copyWith(
                     fontSize: Dimensions.mediumTextSize
                   ),
@@ -149,6 +175,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       radius: Dimensions.radius*0.6,
                       onPressed: () {
                         //todo add to cart
+                        AddCart();
                       },
                     )
                 )
@@ -184,10 +211,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           });
         },
       ),
-      items: _imageList
+      items: _imageList.isNotEmpty ? _imageList
           .map((item) =>
           Container(
             child: imgItems(item),
+          )
+      )
+          .toList() : _dummyimageList
+          .map((item) =>
+          Container(
+            child: dummyimgItems(item),
           )
       )
           .toList(),
@@ -195,6 +228,54 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   imgItems(String item) {
+
+    dynamic bytes;
+    if(item.isNotEmpty) {
+      bytes = base64.decode(item);
+    } else {
+      bytes = null;
+    }
+
+    return Card(
+      color: CustomColor.cardColor,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.radius*0.5),
+          side: BorderSide(color: CustomColor.borderColor,width: 1)
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+            vertical: Dimensions.heightSize,
+            horizontal: Dimensions.widthSize
+        ),
+        child: SizedBox(
+          height: mHeight*0.35,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              bytes != null ? Image.memory(bytes,height: mWidth,width: mWidth,) : Image.asset(item,height: mWidth,width: mWidth,),
+              Positioned(
+                right: 0,
+                top: 0,
+                child: InkWell(
+                  onTap: () {
+                    //todo add/remove wishlist
+                  },
+                  child: Icon(
+                    !_isWishlisted ? Icons.favorite_border_rounded : Icons.favorite,
+                    color: CustomColor.primaryColor,
+                    size: Dimensions.iconSizeDefault,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  dummyimgItems(String item) {
     return Card(
       color: CustomColor.cardColor,
       elevation: 0,
@@ -236,8 +317,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   List<Widget> _buildPageIndicator() {
     List<Widget> list = [];
-    for (int i = 0; i < _imageList.length; i++) {
-      list.add(PageIndicator(isActive: i == _currentIndex ? true : false));
+    if(_imageList.isNotEmpty) {
+      for (int i = 0; i < _imageList.length; i++) {
+        list.add(PageIndicator(isActive: i == _currentIndex ? true : false));
+      }
+    } else {
+      for (int i = 0; i < _dummyimageList.length; i++) {
+        list.add(PageIndicator(isActive: i == _currentIndex ? true : false));
+      }
     }
     return list;
   }
@@ -374,5 +461,80 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     ).marginOnly(top: Dimensions.heightSize);
   }
 
+  void getProductDetails() {
+    ConnectionUtils.checkConnection().then((intenet) async {
+      if (intenet) {
+        setState(() {
+          _isLoading = true;
+          productDetails.clear();
+        });
+        try{
+          final ProductDetailsModel resultModel = await ApiManager.FetchProductDetails(widget.pId);
+
+          if(resultModel.error == false) {
+            setState(() {
+              _isLoading = false;
+              productDetails = resultModel.productDetails;
+              _imageList = resultModel.productDetails.first.images;
+            });
+
+          } else{
+            setState(() {
+              _isLoading = false;
+            });
+            UIUtils.bottomToast(context: context, text: resultModel.message, isError: true);
+          }
+        }
+        on Exception catch(_,e){
+          setState(() {
+            _isLoading = false;
+          });
+          print(e.toString());
+          UIUtils.bottomToast(context: context, text: e.toString(), isError: true);
+        }
+      }
+      else {
+        // No-Internet Case
+        UIUtils.bottomToast(context: context, text: "Please check your internet connection", isError: true);
+      }
+    });
+  }
+
+  void AddCart() {
+    ConnectionUtils.checkConnection().then((intenet) async {
+      if (intenet) {
+        setState(() {
+          _isLoading = true;
+        });
+        try{
+          final RegisterModel resultModel = await ApiManager.AddtoCart(widget.pId,userId!,"1");
+
+          if(resultModel.error == false) {
+            setState(() {
+              _isLoading = false;
+            });
+
+            UIUtils.bottomToast(context: context, text: resultModel.message, isError: false);
+          } else{
+            setState(() {
+              _isLoading = false;
+            });
+            UIUtils.bottomToast(context: context, text: resultModel.message, isError: true);
+          }
+        }
+        on Exception catch(_,e){
+          setState(() {
+            _isLoading = false;
+          });
+          print(e.toString());
+          UIUtils.bottomToast(context: context, text: e.toString(), isError: true);
+        }
+      }
+      else {
+        // No-Internet Case
+        UIUtils.bottomToast(context: context, text: "Please check your internet connection", isError: true);
+      }
+    });
+  }
 
 }
